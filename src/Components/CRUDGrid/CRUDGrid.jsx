@@ -5,11 +5,12 @@ import MaterialTable from 'material-table';
     const [state, setState] = React.useState({
         columns: props.columns,
         data: props.data,
+        title : props.title
     });
 
     return (
         <MaterialTable
-            title= {props.title}
+            title= {state.title}
             columns={state.columns}
             data={state.data}
             editable={{
