@@ -1,5 +1,6 @@
 import React from 'react';
 import SignInPass from "../../Components/SignInPass/SignInPass";
+import { withRouter } from "react-router-dom";
 
 const LoginStepTwoPage = props =>  {
     return (<div>
@@ -7,4 +8,4 @@ const LoginStepTwoPage = props =>  {
     </div>)
 }
 
-export default LoginStepTwoPage;
+export default withRouter(LoginStepTwoPage);
