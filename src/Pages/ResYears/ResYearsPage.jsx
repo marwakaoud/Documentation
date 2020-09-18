@@ -7,7 +7,7 @@ class ResYearsPage extends Component {
     constructor(props) {
         super(props);
          this.state = {
-             url:'url:"http://172.16.1.102/api/v1/getdata"',
+             url:'http://172.16.1.102/api/v1/getdata',
              data:[],
              columns: [
                  { title: 'Name', field: 'NAME' },
