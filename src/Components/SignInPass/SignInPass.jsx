@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+import React , {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -26,6 +26,7 @@ function Copyright() {
         </Typography>
     );
 }
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,58 +59,55 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-class SignInPass extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            classes:useStyles(),
-            password: "" ,
-            url:"http://172.16.1.102:7070/learnapi/v1/authenticate" ,
-            redirect:'/'
 
-        }
+function SignInPass (props) {
+
+    const container = {
+        url:"http://172.16.1.102:7070/learnapi/v1/authenticate" ,
+        redirect:'/'
     }
-    handleChange = (event) => {
-        this.setState({password:event.target.value})
-        console.log(this.state.password)
-        console.log(this.props.location.state)
+    const [password , setPassword] = useState("");
+    const classes = useStyles();
+
+    function handleChange (event) {
+        setPassword(event.target.value)
     }
-    handleSent = (event) => {
+ function handleSent  (event)  {
         event.preventDefault();
-        const password  = this.state.password;
+
         axios({
             method: 'post',
-            url:this.state.url,
+            url:container.url,
             data:{
                 fun_name:"FU_SEC_USER4",
                 param_name:["P_USER_NAME", "P_USER_PASSWORD"],
-                param_value:[this.props.username, this.state.password]
+                param_value:[props.username, password]
             }
         })
             .then(response => {
                 sessionStorage.setItem("TOKEN_ID", response.data.Table[0].TOKEN_ID);
                 sessionStorage.setItem("USER_ID", response.data.Table[0].USER_ID);
-                this.props.history.push(this.state.redirect);
+                props.history.push(container.redirect);
 
 
             })
             .catch(error => console.error('timeout exceeded'))
 
     }
-    render() {
+
         return (
-            <Grid container component="main" className={this.state.classes.root}>
+            <Grid container component="main" className={classes.root}>
                 <CssBaseline />
-                <Grid item xs={false} sm={4} md={7} className={this.state.classes.image} />
+                <Grid item xs={false} sm={4} md={7} className={classes.image} />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <div className={this.state.classes.paper}>
-                        <Avatar className={this.state.classes.avatar}>
+                    <div className={classes.paper}>
+                        <Avatar className={classes.avatar}>
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Welcome {this.props.fullName}
+                            Welcome {props.fullName}
                         </Typography>
-                        <form className={this.state.classes.form} noValidate>
+                        <form className={classes.form} noValidate>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -120,7 +118,7 @@ class SignInPass extends Component{
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                onChange={this.handleChange}
+                                onChange={handleChange}
                             />
 
 
@@ -129,8 +127,8 @@ class SignInPass extends Component{
                                 fullWidth
                                 variant="contained"
                                 color="primary"
-                                className={this.state.classes.submit}
-                                onClick={this.handleSent}
+                                className={classes.submit}
+                                onClick={handleSent}
                             >
                                 Sign In
                             </Button>
@@ -142,7 +140,7 @@ class SignInPass extends Component{
                 </Grid>
             </Grid>
         );
-    }
+
 
 }
 

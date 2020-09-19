@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MaterialTable from 'material-table';
 
  const CRUDGrid = (props) => {
@@ -11,8 +11,8 @@ import MaterialTable from 'material-table';
     return (
         <MaterialTable
             title= {state.title}
-            columns={state.columns}
-            data={state.data}
+            columns={props.columns}
+            data={props.data}
             editable={{
                 onRowAdd: (newData) =>
                     new Promise((resolve) => {

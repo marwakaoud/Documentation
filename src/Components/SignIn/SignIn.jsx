@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+import React , {Component , useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,7 @@ import axios from 'axios';
 import { withRouter } from "react-router-dom";
 
 
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -26,6 +27,7 @@ function Copyright() {
         </Typography>
     );
 }
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,96 +60,97 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-class SignInSide extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            classes:useStyles(),
-            name: "" ,
-            url:"http://172.16.1.102:7070/learnapi/v1/authenticate" ,
-            redirect:'/loginpass'
+ function SignInSide(props) {
+     const container = {
+         url:"http://172.16.1.102:7070/learnapi/v1/authenticate" ,
+         redirect:'/loginpass'
+     };
 
-        }
-    }
-    handleChange = (event) => {
-        this.setState({name:event.target.value})
-        console.log(this.state.name)
-    }
-    handleSent = (event) => {
-        event.preventDefault();
-        const usernamme  = this.state.name;
-        axios({
-            method: 'post',
-            url:this.state.url,
-            timeout: 4000,    // 4 seconds timeout
-            data:{
-                fun_name:"FU_SEC_USER3",
-                param_name:["P_USER_NAME"],
-                param_value:[usernamme]
-            }
-        })
-            .then(response => {
-                if (response.data.Table[0].SEC_STATUS === "doneuser"){
-                    console.log(response.data)
-                    let state =  {username : this.state.name , full_name:response.data.Table[0].USER_DESC }
-                    this.props.history.push(this.state.redirect,state);
+const [name , setName] = useState("");
+     function handleChange (event) {
+         setName(event.target.value)
+     }
+     function handleSent (event)  {
+         event.preventDefault();
 
-                }else {
-                    alert('zeze')
-                }
+         axios({
+             method: 'post',
+             url:container.url,
+             timeout: 4000,    // 4 seconds timeout
+             data:{
+                 fun_name:"FU_SEC_USER3",
+                 param_name:["P_USER_NAME"],
+                 param_value:[name]
+             }
+         })
+             .then(response => {
+                 if (response.data.Table[0].SEC_STATUS === "doneuser"){
+                     console.log(response.data)
+                     let state =  {username : name , full_name:response.data.Table[0].USER_DESC }
+                     console.log(`${container.redirect}`)
+                     props.history.push(container.redirect, state);
 
-            })
-            .catch(error => console.error('timeout exceeded'))
+                 }else {
+                     alert('zeze')
+                 }
 
-    }
-    render() {
-        return (
-            <Grid container component="main" className={this.state.classes.root}>
-                <CssBaseline />
-                <Grid item xs={false} sm={4} md={7} className={this.state.classes.image} />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <div className={this.state.classes.paper}>
-                        <Avatar className={this.state.classes.avatar}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign in
-                        </Typography>
-                        <form className={this.state.classes.form} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                name="Username"
-                                autoComplete="Username"
-                                autoFocus
-                                onChange = {this.handleChange}
-                            />
+             })
+             .catch(error => console.error('timeout exceeded'))
+
+     }
 
 
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={this.state.classes.submit}
-                                onClick={this.handleSent}
-                            >
-                                Sign In
-                            </Button>
-                            <Box mt={5}>
-                                <Copyright />
-                            </Box>
-                        </form>
-                    </div>
-                </Grid>
+
+     const classes = useStyles();
+
+    return (
+        <Grid container component="main" className={classes.root}>
+            <CssBaseline />
+            <Grid item xs={false} sm={4} md={7} className={classes.image} />
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <form className={classes.form} noValidate>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            name="Username"
+                            autoComplete="Username"
+                            autoFocus
+                            onChange = {handleChange}
+                        />
+
+
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={handleSent}
+                        >
+                            Sign In
+                        </Button>
+                        <Box mt={5}>
+                            <Copyright />
+                        </Box>
+                    </form>
+                </div>
             </Grid>
-        );
-    }
-
+        </Grid>
+    );
 }
 
-export default withRouter(SignInSide)
+
+export default withRouter(SignInSide);
+
+

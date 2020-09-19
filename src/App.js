@@ -5,8 +5,9 @@ import './App.css';
 import {Switch , Route } from 'react-router-dom';
 import LoginStepOnePage from "./Pages/LoginStepOne/LoginStepOnePage";
 import LoginStepTwoPage from "./Pages/LoginStepTwo/LoginStepTwoPage";
+import { withRouter } from "react-router-dom";
 import HomePage from './Pages/Home/HomePage'
-import ResYearsPage from "./Pages/ResYears/ResYearsPage";
+import ResYearGird from "./Pages/ResYears/ResYearGird";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +26,7 @@ class App extends Component {
     return (
         <div >
           <Switch>
-            <Route  path='/resyear' component={() => <ResYearsPage/>} />
+            <Route  path='/resyear' component={() => <ResYearGird/>} />
             <Route  path='/login' component={() => <LoginStepOnePage/>} />
             <Route  path='/loginpass' component={() => <LoginStepTwoPage/>} />
             <Route exact path='/' component={() => <HomePage/>} />
@@ -35,4 +36,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

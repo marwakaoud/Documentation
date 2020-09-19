@@ -28,8 +28,8 @@ componentDidMount(){
         }
     })
         .then(response => {
-         this.setState({data: response.data.Table[0]})
-          console.log(response.data.Table[0])
+         this.setState({data: response.data.Table})
+          console.log(response.data.Table)
 
         })
         .catch(error => console.error('timeout exceeded'))
