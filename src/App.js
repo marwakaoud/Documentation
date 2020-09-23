@@ -6,8 +6,9 @@ import {Switch , Route } from 'react-router-dom';
 import LoginStepOnePage from "./Pages/LoginStepOne/LoginStepOnePage";
 import LoginStepTwoPage from "./Pages/LoginStepTwo/LoginStepTwoPage";
 import { withRouter } from "react-router-dom";
-import HomePage from './Pages/Home/HomePage'
 import ResYearGird from "./Pages/ResYears/ResYearGird";
+import ResYearsPage from './Pages/ResYears/ResYearsPage';
+import HomePage from './Pages/Home/HomePage';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,9 @@ class App extends Component {
             <Route  path='/resyear' component={() => <ResYearGird/>} />
             <Route  path='/login' component={() => <LoginStepOnePage/>} />
             <Route  path='/loginpass' component={() => <LoginStepTwoPage/>} />
-            <Route exact path='/' component={() => <HomePage/>} />
+            <Route exact path='/ResYearsPage' component={() => <ResYearsPage/>} />
+            <Route exact path='/' component={() => <HomePage />} />
+            
           </Switch>
         </div>
     );

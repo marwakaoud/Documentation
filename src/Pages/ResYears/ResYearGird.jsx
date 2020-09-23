@@ -9,5 +9,4 @@ const ResYearGird = props => {
            <Dashboard component={GetResYearPage}/>
     </div>)
 }
-
 export default ResYearGird;

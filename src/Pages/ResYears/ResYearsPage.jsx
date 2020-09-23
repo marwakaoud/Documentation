@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import axios from 'axios';
 import CRUDGrid from "../../Components/CRUDGrid/CRUDGrid";
+import Dashboard from '../../Components/Dashboard/Dashboard';
 
 
 class ResYearsPage extends Component {
@@ -37,7 +38,9 @@ componentDidMount(){
     render() {
         return (
             <div>
-          <CRUDGrid title={this.state.title} columns={this.state.columns} data={this.state.data}/>
+                   <Dashboard>
+                       <CRUDGrid title={this.state.title} data={this.state.data} columns={this.state.columns}/>
+                   </Dashboard>
             </div>
         );
     }
