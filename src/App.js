@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import ResYearGird from "./Pages/ResYears/ResYearGird";
 import ResYearsPage from './Pages/ResYears/ResYearsPage';
 import HomePage from './Pages/Home/HomePage';
+import CRUDGrid from './Components/CRUDGrid/CRUDGrid';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,10 +31,10 @@ class App extends Component {
             <Route  path='/resyear' component={() => <ResYearGird/>} />
             <Route  path='/login' component={() => <LoginStepOnePage/>} />
             <Route  path='/loginpass' component={() => <LoginStepTwoPage/>} />
+            <Route exact path='/CRUDGrid'Component={()=><CRUDGrid/>}/>
             <Route exact path='/ResYearsPage' component={() => <ResYearsPage/>} />
             <Route exact path='/' component={() => <HomePage />} />
-
-
+            
           </Switch>
         </div>
     );

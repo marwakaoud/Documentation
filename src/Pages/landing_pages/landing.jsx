@@ -1,16 +1,26 @@
 import React , {Component} from 'react';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
 import axios from 'axios';
 import '../landing_pages/landing.css';
-import { usePagination } from '@material-ui/lab/Pagination';
+import AddModal from '../../Components/AddModal/AddModel';
+import MediaCard from '../../Components/CardDocument/CardDocument';
+
 class Landing extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:[], url: 'http://172.16.1.102:6060/api/v1/getdata'
+            data:[], url: 'http://172.16.1.102:6060/api/v1/getdata' , columns: [
+              { title: 'Name', field: 'APP_NAME' },
+              { title: 'id', field: 'APP_ID', type: 'numeric' },
+              { title: 'DESC', field: 'APP_DESC' },
+          ],
+          title:'Table'
         }
 }
+
 componentDidMount(){
-    axios({
+axios({
         method: 'POST',
         url:this.state.url,
         data:{
@@ -20,13 +30,12 @@ componentDidMount(){
         }
       })
       .then(response => {
-         console.log(response.data.Table)    
+             console.log(response.data.Table)    
          this.setState({data :response.data.Table })
         })
       .catch(error => console.error('timeout exceeded'))
 }
 handleClick =(id) =>{
-  // alert(id);
   const all_data = this.state.data;
  const single_data = all_data.find(d => d.APP_DESC === id);
  const par = document.getElementById("1");
@@ -34,35 +43,24 @@ handleClick =(id) =>{
  par_container[0].style.display ="block"
  par.textContent = single_data.APP_DESC
  
+ 
 }
 
 render () {
     return (
+
+      
         <div>
+         <AddModal/>
 
 <div className="cards-container">
  
  {this.state.data.map((d) => {
-     return(
-         <div>
-               <div className="card-container">
-    <div className="card">
-      <div className="front">
-<img src="https://api.adorable.io/avatars/150/1"/>
-      </div>
-      <div className="back">
-   
-     <p>{d.APP_NAME}</p>
-     
-     <button onClick={ () =>  this.handleClick(d.APP_DESC)}>DESC</button>
-
-      </div>
-      
-    </div>
-  </div>
-  </div>
-
-     )
+   return (
+          <div key={d.APP_ID}>
+            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC}/>
+            </div>
+    )
  })
  }
 </div>
@@ -73,6 +71,7 @@ render () {
   </p>
 
 </div>
+
   </div>
     )
 }
