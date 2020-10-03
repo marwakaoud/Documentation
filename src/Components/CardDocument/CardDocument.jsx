@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import NavigationIcon from '@material-ui/icons/Navigation';
+
 
 
 const useStyles = makeStyles({
@@ -32,7 +34,10 @@ export default function MediaCard(props) {
             {props.appName}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.appDesc}
+          <Fab variant="extended">
+        <NavigationIcon className={classes.extendedIcon} />
+        Show Description
+      </Fab>
           </Typography>
         </CardContent>
       </CardActionArea>
