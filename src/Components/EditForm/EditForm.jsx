@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-import { withRouter } from "react-router";
 
 
 function Copyright() {
@@ -54,22 +53,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddForm(props) {
+export default function EditForm(props) {
   const classes = useStyles();
   const [app_name, setAppName] = useState("");
   const [app_desc, setAppdesc] = useState("");
   const [url, setUrl] = useState("http://172.16.1.102:6060/api/v1/crud");
   const [data, setData] = useState("");
 
-  const handlesubmit = (event) => {
+  const handlesubmit = ( event) => {
     event.preventDefault();
     axios({
         method: 'POST',
         url:url,
         data:{
-            fun_name:"PRO_INSERT_DOC_APPLICATIONS",
-            param_name:['P_APP_NAME','P_APP_DESC'],
-            param_value:[app_name , app_desc],
+            fun_name:"PRO_UPDATE_DOC_APPLICATIONS",
+            param_name:['P_APP_ID ,P_APP_NAME','P_APP_DESC'],
+            param_value:[props.app.APP_ID , app_name , app_desc],
         }
       })
       .then(response => {
@@ -81,8 +80,7 @@ export default function AddForm(props) {
              alert("error")
          }
         })
-      .catch(error => console.error('timeout exceeded'))  ;
-
+      .catch(error => console.error('timeout exceeded'))    
     };
   return (
     <Container component="main" maxWidth="xs">
@@ -99,7 +97,7 @@ export default function AddForm(props) {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                value={app_name}
+                value={props.app.APP_NAME}
           onChange={e => setAppName(e.target.value)}
                 required
                 fullWidth
@@ -107,14 +105,11 @@ export default function AddForm(props) {
                 label="Application Name"
                 name="app_name"
                 type="text"
-                autoFocus           
-                required
-                fullWidth
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-               value={app_desc}
+               value={props.app.APP_DESC}
                onChange={e => setAppdesc(e.target.value)}
                 variant="outlined"
                 required
@@ -123,16 +118,8 @@ export default function AddForm(props) {
                 label="Description"
                 type="text"
                 id="desc"
-                autoFocus           
-                required
-                fullWidth
+
                 />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
             </Grid>
           </Grid>
           <Button
@@ -143,7 +130,7 @@ export default function AddForm(props) {
             color="primary"
             className={classes.submit}
           >
-           Add
+           Edit
           </Button>
         </form>
       </div>
@@ -151,4 +138,3 @@ export default function AddForm(props) {
     </Container>
   );
 }
-withRouter(AddForm);

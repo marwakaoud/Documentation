@@ -5,18 +5,45 @@ import axios from 'axios';
 import '../landing_pages/landing.css';
 import AddModal from '../../Components/AddModal/AddModel';
 import MediaCard from '../../Components/CardDocument/CardDocument';
+import { withRouter } from "react-router";
 
 class Landing extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          crudURL :"http://172.16.1.102:6060/api/v1/crud",
             data:[], url: 'http://172.16.1.102:6060/api/v1/getdata' , columns: [
               { title: 'Name', field: 'APP_NAME' },
               { title: 'id', field: 'APP_ID', type: 'numeric' },
               { title: 'DESC', field: 'APP_DESC' },
           ],
-          title:'Table'
+          title:'Table',
+          status : ""
+
         }
+}
+handleEdit = (app) => {
+   console.log(app);
+}
+
+handledelete = (id) => {
+        console.log(id);
+  axios({
+    method: 'POST',
+    url:this.state.crudURL,
+    data:{
+        fun_name:"PRO_DELETE_DOC_APPLICATIONS",
+        param_name:["P_APP_ID"],
+        param_value:[id],
+    }
+  })
+  .then(response => {
+         console.log(response.data)    
+     this.setState({status :response.data})
+     this.props.history.push('/');
+    })
+  .catch(error => console.error('timeout exceeded'))
+
 }
 
 componentDidMount(){
@@ -58,7 +85,8 @@ render () {
  {this.state.data.map((d) => {
    return (
           <div key={d.APP_ID}>
-            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC}/>
+            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}   handledelete = { () => {this.handledelete(d.APP_ID)} }
+                  handleedit = { ()=> {this.handleEdit(d)}}              />
             </div>
     )
  })
@@ -77,4 +105,4 @@ render () {
 }
 }
 
-export default Landing ;
+export default  withRouter(Landing) ;

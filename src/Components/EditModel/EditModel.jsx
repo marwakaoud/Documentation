@@ -1,18 +1,17 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import EditForm from '../EditForm/EditForm';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import AddForm from '../form/form';
-
+import EditIcon from '@material-ui/icons/Edit';
 
 function rand() {
-  return Math.round(Math.random() * 30) - 20;
+  return Math.round(Math.random() * 20) - 10;
 }
 
 function getModalStyle() {
-  const top = 75+ rand();
-  const left = 75 + rand();
+  const top = 50 + rand();
+  const left = 50 + rand();
 
   return {
     top: `${top}%`,
@@ -24,7 +23,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 750,
+    width: 400,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddModal() {
+export default function EditModel(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -47,14 +46,13 @@ export default function AddModal() {
   };
 
   const body = (
-     
-    <AddForm/>
+        <EditForm app ={props.app}/>
     );
 
   return (
     <div>
-      <Fab color="primary" aria-label="add" onClick={handleOpen}>
-  <AddIcon />
+         <Fab color="info" aria-label="add" onClick={handleOpen}>
+  <EditIcon onClick = {props.handleedit} />
 </Fab>
       <Modal
         open={open}
@@ -62,7 +60,7 @@ export default function AddModal() {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-  {body}
+        {body}
       </Modal>
     </div>
   );

@@ -4,13 +4,12 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import EditModel from '../EditModel/EditModel';
+import ShowModel from "../../ShowModel/ShowModel";
 
 
 
@@ -34,19 +33,14 @@ export default function MediaCard(props) {
             {props.appName}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-          <Fab variant="extended">
-        <NavigationIcon className={classes.extendedIcon} />
-        Show Description
-      </Fab>
+      <ShowModel desc = {props.appDesc}/>
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-      <Fab color="info" aria-label="edit">
-  <EditIcon />
-</Fab>
-<Fab color="secondary" aria-label="edit">
-  <DeleteIcon />
+    <EditModel onClick= {props.handleedit} app = {{APP_ID : props.app_ID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
+<Fab color="secondary" aria-label="delete" >
+  <DeleteIcon onClick= {props.handledelete} />
 </Fab>
       </CardActions>
     </Card>
