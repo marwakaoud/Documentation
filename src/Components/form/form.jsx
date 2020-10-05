@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddForm(props) {
+ function AddForm(props) {
   const classes = useStyles();
   const [app_name, setAppName] = useState("");
   const [app_desc, setAppdesc] = useState("");
@@ -63,7 +63,7 @@ export default function AddForm(props) {
 
 const handClose = (event) => {
   event.preventDefault();
-  this.props.history.push('/')
+  props.history.push('/')
 }
 
   const handlesubmit = (event) => {
@@ -80,11 +80,7 @@ const handClose = (event) => {
       .then(response => {
              console.log(response.data)    
          setData(response.data )
-         if (data == "1") {
-             alert("Done")
-         }else {
-             alert("error")
-         }
+        props.history.push('/')
         })
       .catch(error => console.error('timeout exceeded'))  ;
 
@@ -157,4 +153,4 @@ const handClose = (event) => {
     </Container>
   );
 }
-withRouter(AddForm);
+export default withRouter(AddForm);
