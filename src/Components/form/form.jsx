@@ -61,6 +61,11 @@ export default function AddForm(props) {
   const [url, setUrl] = useState("http://172.16.1.102:6060/api/v1/crud");
   const [data, setData] = useState("");
 
+const handClose = (event) => {
+  event.preventDefault();
+  this.props.history.push('/')
+}
+
   const handlesubmit = (event) => {
     event.preventDefault();
     axios({
@@ -131,12 +136,20 @@ export default function AddForm(props) {
           <Button
           onClick = {(event) => {handlesubmit(event)}}
             type="submit"
-            fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
           >
            Add
+          </Button>
+          <Button
+          onClick = {(event) => {handClose(event)}}
+            type="submit" 
+            variant="contained"
+            color="danger"
+            className={classes.submit}
+          >
+           Close
           </Button>
         </form>
       </div>
