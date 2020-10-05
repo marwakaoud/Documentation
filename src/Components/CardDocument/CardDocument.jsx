@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
-import NavigationIcon from '@material-ui/icons/Navigation';
 import EditModel from '../EditModel/EditModel';
 import ShowModel from "../../ShowModel/ShowModel";
 
@@ -33,7 +32,6 @@ export default function MediaCard(props) {
             {props.appName}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-      <ShowModel desc = {props.appDesc}/>
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -42,6 +40,9 @@ export default function MediaCard(props) {
 <Fab color="secondary" aria-label="delete" >
   <DeleteIcon onClick= {props.handledelete} />
 </Fab>
+
+<ShowModel app = {{APP_ID : props.app_ID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
+
       </CardActions>
     </Card>
   );

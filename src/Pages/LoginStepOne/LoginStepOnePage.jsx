@@ -1,13 +1,20 @@
-import React from 'react';
+import React  , {Component}from 'react';
 import SignInSide from "../../Components/SignIn/SignIn";
-import { withRouter } from "react-router-dom";
+import { withRouter ,browserHistory} from "@version/react-router-v3";
 
-const LoginStepOnePage = props => {
+
+
+class LoginStepOnePage extends Component {
+
+render() {
     return (
         <div>
         <SignInSide/>
     </div>
     )
-};
+  }
+}
+  
+
 
 export default withRouter(LoginStepOnePage);

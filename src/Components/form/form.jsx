@@ -94,7 +94,7 @@ export default function AddForm(props) {
         <Typography component="h1" variant="h5">
           {props.title}
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -122,17 +122,10 @@ export default function AddForm(props) {
                 name="desc"
                 label="Description"
                 type="text"
-                id="desc"
-                autoFocus           
+                id="desc"           
                 required
                 fullWidth
                 />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
             </Grid>
           </Grid>
           <Button

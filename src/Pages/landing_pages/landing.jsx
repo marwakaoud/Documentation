@@ -1,14 +1,15 @@
 import React , {Component} from 'react';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
 import axios from 'axios';
 import '../landing_pages/landing.css';
 import AddModal from '../../Components/AddModal/AddModel';
 import MediaCard from '../../Components/CardDocument/CardDocument';
-import { withRouter } from "react-router";
+import Grid from '@material-ui/core/Grid';
+import {withRouter} from 'react-router';
+
 
 class Landing extends Component {
     constructor(props) {
+      console.log(props);
         super(props);
         this.state = {
           crudURL :"http://172.16.1.102:6060/api/v1/crud",
@@ -21,8 +22,9 @@ class Landing extends Component {
           status : ""
 
         }
+        
 }
-handleEdit = (app) => {
+ handleEdit = (app) => {
    console.log(app);
 }
 
@@ -46,22 +48,39 @@ handledelete = (id) => {
 
 }
 
-componentDidMount(){
-axios({
-        method: 'POST',
-        url:this.state.url,
-        data:{
-            fun_name:"FU_DOC_APPLICATIONS",
-            param_name:[],
-            param_value:[],
-        }
-      })
-      .then(response => {
-             console.log(response.data.Table)    
-         this.setState({data :response.data.Table })
-        })
-      .catch(error => console.error('timeout exceeded'))
+componentDidUpdate()
+{
+
+    window.onpopstate = (e) => {
+        console.log("aaaaa")
+        window.history.forward()
+        
+    }
+
 }
+
+componentDidMount(){
+  axios({
+          method: 'POST',
+          url:this.state.url,
+          data:{
+              fun_name:"FU_DOC_APPLICATIONS",
+              param_name:[],
+              param_value:[],
+          }
+        })
+        .then(response => {
+               console.log(response.data.Table)    
+           this.setState({data :response.data.Table })
+          })
+        .catch(error => console.error('timeout exceeded'))
+  
+  
+      }
+
+
+
+
 handleClick =(id) =>{
   const all_data = this.state.data;
  const single_data = all_data.find(d => d.APP_DESC === id);
@@ -80,18 +99,20 @@ render () {
         <div>
          <AddModal/>
 
-<div className="cards-container">
- 
- {this.state.data.map((d) => {
+    <Grid container spacing={3}>
+
+    {this.state.data.map((d) => {
    return (
-          <div key={d.APP_ID}>
+       <Grid item xs={4}>
+       <div key={d.APP_ID}>
             <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}   handledelete = { () => {this.handledelete(d.APP_ID)} }
                   handleedit = { ()=> {this.handleEdit(d)}}              />
             </div>
+       </Grid>
     )
  })
  }
-</div>
+    </Grid>
 
 <div className="zeinab">
   <p id="1">

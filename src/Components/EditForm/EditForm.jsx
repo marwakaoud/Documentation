@@ -77,7 +77,7 @@ export default function EditForm(props) {
          if (data == "1") {
              alert("Done")
          }else {
-             alert("error")
+            //  alert("error")
          }
         })
       .catch(error => console.error('timeout exceeded'))    

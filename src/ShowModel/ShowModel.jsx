@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Fab from '@material-ui/core/Fab';
-import NavigationIcon from "@material-ui/icons/Navigation";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { Card, CardTitle, CardText, Row, Col } from 'reactstrap';
 
 
 function rand() {
@@ -33,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ShowModel(props) {
     const classes = useStyles();
-    // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
+        console.log("react")
         setOpen(true);
     };
 
@@ -46,16 +47,22 @@ export default function ShowModel(props) {
     };
 
     const body = (
-      <p>{props.desc}</p>
+        <Row>
+      <Col sm="6">
+        <Card body>
+    <CardTitle>{props.app.APP_NAME}</CardTitle>
+    <CardText>{props.app.APP_DESC}</CardText>
+        </Card>
+      </Col>
+    </Row>
 
     );
 
     return (
         <div>
-            <Fab variant="extended">
-                <NavigationIcon className={classes.extendedIcon} />
-                Show Description
-            </Fab>
+            <Fab  aria-label="like" >
+        <FavoriteIcon onClick= {handleOpen} />
+      </Fab>
             <Modal
                 open={open}
                 onClose={handleClose}
