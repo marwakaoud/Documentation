@@ -74,11 +74,7 @@ export default function EditForm(props) {
       .then(response => {
              console.log(response.data)    
          setData(response.data )
-         if (data == "1") {
-             alert("Done")
-         }else {
-            //  alert("error")
-         }
+        
         })
       .catch(error => console.error('timeout exceeded'))    
     };
@@ -92,14 +88,13 @@ export default function EditForm(props) {
         <Typography component="h1" variant="h5">
           {props.title}
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                value={props.app.APP_NAME}
+                defaultValue={props.app.APP_NAME}
           onChange={e => setAppName(e.target.value)}
-                required
                 fullWidth
                 id="app_name"
                 label="Application Name"
@@ -109,10 +104,9 @@ export default function EditForm(props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-               value={props.app.APP_DESC}
+               defaultValue={props.app.APP_DESC}
                onChange={e => setAppdesc(e.target.value)}
                 variant="outlined"
-                required
                 fullWidth
                 name="desc"
                 label="Description"

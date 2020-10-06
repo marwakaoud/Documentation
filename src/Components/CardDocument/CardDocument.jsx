@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditModel from '../EditModel/EditModel';
@@ -21,18 +20,20 @@ const useStyles = makeStyles({
   },
 });
 
+
 export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+        <CardContent >
+          <p gutterBottom variant="h5" component="h2" onClick={props.handelonclick} >
             {props.appName}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-          </Typography>
+            
+          </p>
+          <p variant="body2" color="textSecondary" component="p">
+          </p>
         </CardContent>
       </CardActionArea>
       <CardActions>

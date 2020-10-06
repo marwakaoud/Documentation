@@ -1,15 +1,14 @@
 import React , {Component} from 'react';
 import axios from 'axios';
-import '../landing_pages/landing.css';
+import '../../Pages/landing_pages/landing.css'
 import AddModal from '../../Components/AddModal/AddModel';
 import MediaCard from '../../Components/CardDocument/CardDocument';
 import Grid from '@material-ui/core/Grid';
-import {Redirect, withRouter} from 'react-router';
+import {withRouter} from 'react-router';
 import { Button } from '@material-ui/core';
-import pagefor from '../../Components/pagefor/pagefor';
 
 
-class Landing extends Component {
+class pagefor extends Component {
     constructor(props) {
       console.log(props);
         super(props);
@@ -79,6 +78,10 @@ componentDidMount(){
   
   
       }
+
+
+
+
 handleClick =(id) =>{
   const all_data = this.state.data;
  const single_data = all_data.find(d => d.APP_DESC === id);
@@ -89,12 +92,6 @@ handleClick =(id) =>{
  
  
 }
-handelonclick = (d) =>{
-  
-  console.log(d)
-this.props. history.push('/pagefor');
-}
-
 
 
 render () {
@@ -102,9 +99,9 @@ render () {
 
       
         <div>
+
+
          <AddModal/>
-        
-         
 
     <Grid container spacing={3}>
 
@@ -112,10 +109,9 @@ render () {
    return (
        <Grid item xs={4}>
        <div key={d.APP_ID}>
-            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}  marwa="jjjj" handledelete = { () => {this.handledelete(d.APP_ID)} }
-                  handleedit = { ()=> {this.handleEdit(d)}}   handelonclick = { ()=> {this.handelonclick(d.APP_ID)}}/>
+            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}   handledelete = { () => {this.handledelete(d.APP_ID)} }
+                  handleedit = { ()=> {this.handleEdit(d)}}           />
             </div>
-
             
        </Grid>
       
@@ -136,4 +132,4 @@ render () {
 
 }
 
-export default  withRouter(Landing) ;
+export default  withRouter(pagefor) ;
