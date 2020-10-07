@@ -61,7 +61,8 @@ export default function EditForm(props) {
   const [data, setData] = useState("");
 
   const handlesubmit = ( event) => {
-    event.preventDefault();
+    console.log(props)
+        event.preventDefault();
     axios({
         method: 'POST',
         url:url,
@@ -117,7 +118,7 @@ export default function EditForm(props) {
             </Grid>
           </Grid>
           <Button
-          onClick = {(event) => {handlesubmit(event)}}
+          onClick = {props.handleEdit}
             type="submit"
             fullWidth
             variant="contained"

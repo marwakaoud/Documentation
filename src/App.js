@@ -10,6 +10,8 @@ import ResYearGird from "./Pages/ResYears/ResYearGird";
 import ResYearsPage from './Pages/ResYears/ResYearsPage';
 import HomePage from './Pages/Home/HomePage';
 import CRUDGrid from './Components/CRUDGrid/CRUDGrid';
+import Pagefor from './Components/pagefor/pagefor';
+import ComponentTypes from './Pages/ComponentTypes/ComponentTypes';
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +37,8 @@ class App extends Component {
             <Route exact path='/CRUDGrid'Component={()=><CRUDGrid/>}/>
             <Route exact path='/ResYearsPage' component={() => <ResYearsPage/>} />
             <Route exact path='/' component={() => <HomePage />} />
+            <Route exact path='/Pagefor' component={() =><ComponentTypes/>} />
+          
             
           </Switch>
         </div>

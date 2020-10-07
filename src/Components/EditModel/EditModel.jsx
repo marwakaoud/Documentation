@@ -36,6 +36,7 @@ export default function EditModel(props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [app, setApp] = React.useState(props.app);
 
   const handleOpen = () => {
     setOpen(true);
@@ -46,7 +47,7 @@ export default function EditModel(props) {
   };
 
   const body = (
-        <EditForm app ={props.app}/>
+        <EditForm app ={app} handleEdit = {props.onClick}/>
     );
 
   return (

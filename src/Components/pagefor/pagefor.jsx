@@ -4,33 +4,23 @@ import '../../Pages/landing_pages/landing.css'
 import AddModal from '../../Components/AddModal/AddModel';
 import MediaCard from '../../Components/CardDocument/CardDocument';
 import Grid from '@material-ui/core/Grid';
-import {withRouter} from 'react-router';
-import { Button } from '@material-ui/core';
+import { withRouter } from "react-router-dom";
 
 
-class pagefor extends Component {
+class Pagefor extends Component {
     constructor(props) {
-      console.log(props);
         super(props);
         this.state = {
           crudURL :"http://172.16.1.102:6060/api/v1/crud",
-            data:[], url: 'http://172.16.1.102:6060/api/v1/getdata' , columns: [
-              { title: 'Name', field: 'APP_NAME' },
-              { title: 'id', field: 'APP_ID', type: 'numeric' },
-              { title: 'DESC', field: 'APP_DESC' },
-          ],
-          title:'Table',
+            data:[], url: 'http://172.16.1.102:6060/api/v1/getdata' ,
           status : ""
 
         }
         
 }
- handleEdit = (app) => {
-   console.log(app);
-}
+ 
 
 handledelete = (id) => {
-        console.log(id);
   axios({
     method: 'POST',
     url:this.state.crudURL,
@@ -41,7 +31,6 @@ handledelete = (id) => {
     }
   })
   .then(response => {
-         console.log(response.data)    
      this.setState({status :response.data})
      this.props.history.push('/');
     })
@@ -49,33 +38,26 @@ handledelete = (id) => {
 
 }
 
-componentDidUpdate()
-{
-
-    window.onpopstate = (e) => {
-        console.log("aaaaa")
-        window.history.forward()
-        
-    }
-
-}
 
 componentDidMount(){
-  axios({
-          method: 'POST',
-          url:this.state.url,
-          data:{
-              fun_name:"FU_DOC_APPLICATIONS",
-              param_name:[],
-              param_value:[],
-          }
+    console.log(this.props.location.state.id)
+ 
+    axios({
+        method: 'POST',
+        url:this.state.url,
+        data:{
+            fun_name:"FU_DOC_PROJECTS",
+            param_name:["P_APP_ID"],
+            param_value:[this.props.location.state.id],
+        }
+      })
+      .then(response => {
+             console.log(response.data.Table)    
+         this.setState({data :response.data.Table })
         })
-        .then(response => {
-               console.log(response.data.Table)    
-           this.setState({data :response.data.Table })
-          })
-        .catch(error => console.error('timeout exceeded'))
-  
+      .catch(error => console.error('timeout exceeded'))
+
+
   
       }
 
@@ -95,6 +77,7 @@ handleClick =(id) =>{
 
 
 render () {
+    const data = this.state.data
     return (
 
       
@@ -105,18 +88,18 @@ render () {
 
     <Grid container spacing={3}>
 
-    {this.state.data.map((d) => {
+    {data?data.map((d) => {
    return (
        <Grid item xs={4}>
        <div key={d.APP_ID}>
-            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}   handledelete = { () => {this.handledelete(d.APP_ID)} }
+            <MediaCard appName = {d.PROJ_NAME} appDesc= {d.PROJ_DESC} appID = {d.PROJ_ID}   handledelete = { () => {this.handledelete(d.PROJ_ID)} }
                   handleedit = { ()=> {this.handleEdit(d)}}           />
             </div>
             
        </Grid>
       
     )
- })
+ }) : <div></div>
  }
     </Grid>
 
@@ -132,4 +115,4 @@ render () {
 
 }
 
-export default  withRouter(pagefor) ;
+export default  withRouter(Pagefor) ;

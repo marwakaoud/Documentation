@@ -23,6 +23,7 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   const classes = useStyles();
+  const [id, setId] = React.useState(props.app_ID);
 
   return (
     <Card className={classes.root}>
@@ -37,7 +38,7 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-    <EditModel onClick= {props.handleedit} app = {{APP_ID : props.app_ID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
+    <EditModel onClick= {props.handleedit} id = {id}  app = {{APP_ID : props.app_ID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
 <Fab color="secondary" aria-label="delete" >
   <DeleteIcon onClick= {props.handledelete} />
 </Fab>

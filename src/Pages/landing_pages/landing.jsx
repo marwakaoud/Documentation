@@ -4,7 +4,7 @@ import '../landing_pages/landing.css';
 import AddModal from '../../Components/AddModal/AddModel';
 import MediaCard from '../../Components/CardDocument/CardDocument';
 import Grid from '@material-ui/core/Grid';
-import {Redirect, withRouter} from 'react-router';
+import { withRouter } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import pagefor from '../../Components/pagefor/pagefor';
 
@@ -21,13 +21,28 @@ class Landing extends Component {
               { title: 'DESC', field: 'APP_DESC' },
           ],
           title:'Table',
-          status : ""
+          status : "" ,
+          update:""
 
         }
         
 }
  handleEdit = (app) => {
-   console.log(app);
+   axios({
+    method: 'POST',
+    url:this.state.crudURL,
+    data:{
+        fun_name:"PRO_UPDATE_DOC_APPLICATIONS",
+        param_name:['P_APP_ID ,P_APP_NAME','P_APP_DESC'],
+        param_value:[app.APP_ID , app.APP_NAME , app.APP_DESC],
+    }
+  })
+  .then(response => {
+         console.log(response.data)    
+    this.setState({updtae: response.data })
+    
+    })
+  .catch(error => console.error('timeout exceeded'))    
 }
 
 handledelete = (id) => {
@@ -90,9 +105,8 @@ handleClick =(id) =>{
  
 }
 handelonclick = (d) =>{
-  
-  console.log(d)
-this.props. history.push('/pagefor');
+  let state =  {id:d }
+  this.props.history.push('/pagefor', state);
 }
 
 
@@ -112,7 +126,7 @@ render () {
    return (
        <Grid item xs={4}>
        <div key={d.APP_ID}>
-            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}  marwa="jjjj" handledelete = { () => {this.handledelete(d.APP_ID)} }
+            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}  handledelete = { () => {this.handledelete(d.APP_ID)} }
                   handleedit = { ()=> {this.handleEdit(d)}}   handelonclick = { ()=> {this.handelonclick(d.APP_ID)}}/>
             </div>
 
