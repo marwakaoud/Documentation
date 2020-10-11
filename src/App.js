@@ -34,10 +34,11 @@ class App extends Component {
             <Route  path='/resyear' component={() => <ResYearGird/>} />
             <Route  path='/login' component={() => <LoginStepOnePage/>} />
             <Route  path='/loginpass' component={() => <LoginStepTwoPage/>} />
-            <Route exact path='/CRUDGrid'Component={()=><CRUDGrid/>}/>
+            <Route exact path='/CRUDGrid' Component={()=><CRUDGrid/>}/>
             <Route exact path='/ResYearsPage' component={() => <ResYearsPage/>} />
             <Route exact path='/' component={() => <HomePage />} />
             <Route exact path='/Pagefor' component={() =><ComponentTypes/>} />
+            <Route exact path='/CRUDGrid' component={() =><ComponentTypes/>} />
           
             
           </Switch>

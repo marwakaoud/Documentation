@@ -4,11 +4,13 @@
             height: 150px;
             width: 150px;
             margin-left: 60px;
+            
 }
 
 .card-container:hover .card{
     -webkit-transform: rotateY( 180deg );
             transform: rotateY( 180deg );
+           
 }
 
 .card {
@@ -16,6 +18,7 @@
             transition: transform 0.7s;
     -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
+            
 }
 
 .front, .back {
@@ -43,12 +46,14 @@
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+          
 }
 
 .card {
   width: 150px;
 	height: 150px;
   margin: 10px;
+  
 }
 
 .front, .back {
@@ -57,6 +62,7 @@
   width: 100%;
   top: 0;
   bottom: 0;
+  
 }
 
 img {
@@ -74,4 +80,8 @@ img {
   padding: 15px;
   background-color: cadetblue;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+}
+.grid{
+  background-color:#8f99d6
 }

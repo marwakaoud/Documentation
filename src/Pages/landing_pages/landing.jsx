@@ -115,7 +115,7 @@ render () {
     return (
 
       
-        <div>
+        <div className="grid">
          <AddModal/>
         
          
