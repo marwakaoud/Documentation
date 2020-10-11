@@ -12,6 +12,7 @@ import HomePage from './Pages/Home/HomePage';
 import CRUDGrid from './Components/CRUDGrid/CRUDGrid';
 import Pagefor from './Components/pagefor/pagefor';
 import ComponentTypes from './Pages/ComponentTypes/ComponentTypes';
+import ModulePage from './Pages/ModulesPage/ModulePage';
 
 class App extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class App extends Component {
             <Route exact path='/ResYearsPage' component={() => <ResYearsPage/>} />
             <Route exact path='/' component={() => <HomePage />} />
             <Route exact path='/Pagefor' component={() =><ComponentTypes/>} />
-            <Route exact path='/CRUDGrid' component={() =><ComponentTypes/>} />
+            <Route exact path='/module' component={() => <ModulePage/> }/>
           
             
           </Switch>

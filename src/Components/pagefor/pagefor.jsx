@@ -76,7 +76,7 @@ handleClick =(id) =>{
 }
 handelonclick = (d) =>{
   let state =  {id:d }
-  this.props.history.push('/CRUDGrid', state);
+  this.props.history.push('/module', state);
 }
 
 
@@ -97,7 +97,7 @@ render () {
        <Grid item xs={4}>
        <div key={d.APP_ID}>
             <MediaCard appName = {d.PROJ_NAME} appDesc= {d.PROJ_DESC} appID = {d.PROJ_ID}   handledelete = { () => {this.handledelete(d.PROJ_ID)} }
-                  handleedit = { ()=> {this.handleEdit(d)}}  handelonclick = { ()=> {this.handelonclick(d.APP_ID)}}         />
+                  handleedit = { ()=> {this.handleEdit(d)}}  handelonclick = { ()=> {this.handelonclick(d.PROJ_ID)}}         />
             </div>
             
        </Grid>
