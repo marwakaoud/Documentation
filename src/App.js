@@ -11,6 +11,7 @@ import CRUDGrid from './Components/CRUDGrid/CRUDGrid';
 import Screens from './Pages/screens/screens'
 import ComponentTypes from './Pages/ComponentTypes/ComponentTypes';
 import ModulePage from './Pages/ModulesPage/ModulePage';
+import ComponentPage from "./Pages/ComponentPage/ComponentPage";
 
 class App extends Component {
   constructor(props) {
@@ -30,7 +31,8 @@ class App extends Component {
     return (
         <div >
           <Switch>
-          <Route  path='/screens' component={() => <Screens/>} />
+            <Route  path='/components' component={() =><ComponentPage/>} />
+            <Route  path='/screens' component={() => <Screens/>} />
             <Route  path='/login' component={() => <LoginStepOnePage/>} />
             <Route  path='/loginpass' component={() => <LoginStepTwoPage/>} />
             <Route exact path='/CRUDGrid' Component={()=><CRUDGrid/>}/>

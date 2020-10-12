@@ -3,7 +3,7 @@ import MaterialTable from 'material-table';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 
-const ScreenGird = (props) => {
+const ScreenComponentGird = (props) => {
     debugger
     const [state, setState] = React.useState({
         columns: props.columns,
@@ -116,6 +116,6 @@ const ScreenGird = (props) => {
         />
     );
 }
-export default withRouter(ScreenGird);
+export default withRouter(ScreenComponentGird);
 
 
