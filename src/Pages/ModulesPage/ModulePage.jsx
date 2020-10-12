@@ -1,8 +1,8 @@
 import React , {Component} from 'react';
 import axios from 'axios';
-import NAV from '../../Components/AppBar/AppBar';
 import CRUDGrid from '../../Components/CRUDGrid/CRUDGrid';
 import { withRouter } from "react-router-dom";
+import MenuAppBar from '../../Components/AppBar/AppBar';
 
 
 
@@ -12,11 +12,10 @@ class ModulePage extends Component {
          this.state = {
              url:'http://172.16.1.102:6060/api/v1/getdata',
              data:[],
+             proj_ID : this.props.location.state.id ,
              columns: [
                  { title: 'Name', field: 'MOD_NAME' },
-                 { title: 'Module ID', field: 'MOD_ID', type: 'numeric' },
                  { title: 'Description', field: 'MODULE_DESC' },
-                 { title: 'Project ID', field: 'PROJ_ID'  , type:'numeric'},
              ],
              title:'Module'
          }
@@ -29,7 +28,7 @@ class ModulePage extends Component {
             data:{
                 fun_name:"FU_DOC_MODULES",
                 param_name:["P_PROJ_ID"],
-                param_value:[this.props.location.state.id]
+                param_value:[this.state.proj_ID]
             }
         })
             .then(response => {
@@ -44,12 +43,14 @@ class ModulePage extends Component {
             <div>
                 <div className = "row">
                     <div className="col-12">
-                    <NAV/>
+                <MenuAppBar title='Module'/>
+                <br/>
+                <br/>
                     </div>
                     </div>
                     <div className = "row">
                     <div className="col-12">
-                        <CRUDGrid data = {this.state.data} columns = {this.state.columns} title = {this.state.title}/>
+                        <CRUDGrid data = {this.state.data} columns = {this.state.columns} title = {this.state.title} proj_id = {this.state.proj_ID}/>
                     </div>
                     </div>
             </div>

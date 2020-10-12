@@ -1,13 +1,14 @@
 import React from 'react';
 import Dashboard from "../../Components/Dashboard/Dashboard";
 import Pagefor from '../../Components/pagefor/pagefor';
+import MenuAppBar from '../../Components/AppBar/AppBar'
 
 const ComponentTypes = props =>  {
     return (<div>
-    
-    <Dashboard>
+     <MenuAppBar title='Projects'/>
+     <br/>
+     <br/>
        <Pagefor/>
-    </Dashboard>
     
     </div>)
 }

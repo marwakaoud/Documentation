@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditModel from '../EditModel/EditModel';
-import ShowModel from "../../ShowModel/ShowModel";
+import ShowModel from "../ShowModel/ShowModel";
 
 
 

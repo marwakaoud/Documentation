@@ -5,6 +5,7 @@ import AddModal from '../../Components/AddModal/AddModel';
 import MediaCard from '../../Components/CardDocument/CardDocument';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
+import MenuAppBar from '../../Components/AppBar/AppBar'
 
 
 class Pagefor extends Component {
@@ -89,6 +90,7 @@ render () {
 
 
          <AddModal/>
+         
 
     <Grid container spacing={3}>
 

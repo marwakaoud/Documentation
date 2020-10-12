@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import pagefor from '../../Components/pagefor/pagefor';
+import MenuAppBar from '../../Components/AppBar/AppBar'
 
 
 class Landing extends Component {
@@ -117,6 +118,7 @@ render () {
       
         <div className="grid">
          <AddModal/>
+
         
          
 
