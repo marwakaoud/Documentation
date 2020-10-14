@@ -6,13 +6,13 @@ import MediaCard from '../../Components/CardDocument/CardDocument';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import { Button } from '@material-ui/core';
-import pagefor from '../../Components/pagefor/pagefor';
+
 import MenuAppBar from '../../Components/AppBar/AppBar'
 
 
 class Landing extends Component {
     constructor(props) {
-      console.log(props);
+
         super(props);
         this.state = {
           crudURL :"http://172.16.1.102:6060/api/v1/crud",
@@ -23,28 +23,12 @@ class Landing extends Component {
           ],
           title:'Table',
           status : "" ,
-          update:""
+
 
         }
         
 }
- handleEdit = (app) => {
-   axios({
-    method: 'POST',
-    url:this.state.crudURL,
-    data:{
-        fun_name:"PRO_UPDATE_DOC_APPLICATIONS",
-        param_name:['P_APP_ID ,P_APP_NAME','P_APP_DESC'],
-        param_value:[app.APP_ID , app.APP_NAME , app.APP_DESC],
-    }
-  })
-  .then(response => {
-         console.log(response.data)    
-    this.setState({updtae: response.data })
-    
-    })
-  .catch(error => console.error('timeout exceeded'))    
-}
+
 
 handledelete = (id) => {
         console.log(id);
@@ -58,24 +42,25 @@ handledelete = (id) => {
     }
   })
   .then(response => {
-         console.log(response.data)    
+
      this.setState({status :response.data})
-     this.props.history.push('/');
+     //this.props.history.push('/');
+    window.location.reload()
     })
   .catch(error => console.error('timeout exceeded'))
 
 }
-
-componentDidUpdate()
-{
-
-    window.onpopstate = (e) => {
-        console.log("aaaaa")
-        window.history.forward()
-        
-    }
-
-}
+//
+// componentDidUpdate()
+// {
+//
+//     window.onpopstate = (e) => {
+//         console.log("aaaaa")
+//         window.history.forward()
+//
+//     }
+//
+// }
 
 componentDidMount(){
   axios({
@@ -88,7 +73,7 @@ componentDidMount(){
           }
         })
         .then(response => {
-               console.log(response.data.Table)    
+               //console.log(response.data.Table)
            this.setState({data :response.data.Table })
           })
         .catch(error => console.error('timeout exceeded'))
@@ -107,7 +92,8 @@ handleClick =(id) =>{
 }
 handelonclick = (d) =>{
   let state =  {id:d }
-  this.props.history.push('/pagefor', state);
+  this.props.history.push('/Projects', state);
+  sessionStorage.setItem("APP_ID", state.id)
 }
 
 
@@ -117,7 +103,7 @@ render () {
 
       
         <div className="grid">
-         <AddModal/>
+         <AddModal currentPage={"apps"}/>
 
         
          
@@ -128,8 +114,8 @@ render () {
    return (
        <Grid item xs={4}>
        <div key={d.APP_ID}>
-            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}  handledelete = { () => {this.handledelete(d.APP_ID)} }
-                  handleedit = { ()=> {this.handleEdit(d)}}   handelonclick = { ()=> {this.handelonclick(d.APP_ID)}}/>
+            <MediaCard appName = {d.APP_NAME} appDesc= {d.APP_DESC} appID = {d.APP_ID}  currentPage={"apps"}  handledelete = { () => {this.handledelete(d.APP_ID)} }
+                handelonclick = { ()=> {this.handelonclick(d.APP_ID)}}/>
             </div>
 
             
@@ -140,12 +126,7 @@ render () {
  }
     </Grid>
 
-<div className="zeinab">
-  <p id="1">
-    
-  </p>
 
-</div>
   </div>
     )
 }

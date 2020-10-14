@@ -1,4 +1,4 @@
-import React from 'react';
+ import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import EditForm from '../EditForm/EditForm';
@@ -32,14 +32,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditModel(props) {
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [app, setApp] = React.useState(props.app);
 
+
   const handleOpen = () => {
     setOpen(true);
+    sessionStorage.setItem("pro", props.app.APP_ID)
+    alert(props.app.APP_ID)
   };
 
   const handleClose = () => {
@@ -47,13 +51,13 @@ export default function EditModel(props) {
   };
 
   const body = (
-        <EditForm app ={app} handleEdit = {props.onClick}/>
+        <EditForm  currentPage={props.currentPage}  app ={app} handleEdit = {props.onClick} onclose={handleClose}/>
     );
 
   return (
     <div>
          <Fab color="info" aria-label="add" onClick={handleOpen}>
-  <EditIcon onClick = {props.handleedit} />
+  <EditIcon  />
 </Fab>
       <Modal
         open={open}

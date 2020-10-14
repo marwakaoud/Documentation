@@ -6,34 +6,40 @@ import MediaCard from '../../Components/CardDocument/CardDocument';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import MenuAppBar from '../../Components/AppBar/AppBar'
+//import { useHistory } from "react-router-dom";
 
 
-class Pagefor extends Component {
+class Project extends Component {
+
     constructor(props) {
         super(props);
+
         this.state = {
           crudURL :"http://172.16.1.102:6060/api/v1/crud",
             data:[], url: 'http://172.16.1.102:6060/api/v1/getdata' ,
-          status : ""
+            PROJ_ID : sessionStorage.getItem("APP_ID") ,
+          status : "",
 
         }
-        
+
 }
- 
 
 handledelete = (id) => {
+        console.log(id)
   axios({
     method: 'POST',
     url:this.state.crudURL,
     data:{
-        fun_name:"PRO_DELETE_DOC_APPLICATIONS",
-        param_name:["P_APP_ID"],
+        fun_name:"PRO_DELETE_DOC_PROJECTS",
+        param_name:['P_PROJ_ID'],
         param_value:[id],
     }
   })
   .then(response => {
      this.setState({status :response.data})
-     this.props.history.push('/');
+      console.log(this.state.status)
+     this.props.history.push('/Projects');
+    // window.location.reload();
     })
   .catch(error => console.error('timeout exceeded'))
 
@@ -41,19 +47,18 @@ handledelete = (id) => {
 
 
 componentDidMount(){
-    console.log(this.props.location.state.id)
- 
+
     axios({
         method: 'POST',
         url:this.state.url,
         data:{
             fun_name:"FU_DOC_PROJECTS",
             param_name:["P_APP_ID"],
-            param_value:[this.props.location.state.id],
+            param_value:[this.state.PROJ_ID],
         }
       })
       .then(response => {
-             console.log(response.data.Table)    
+            // console.log(response.data.Table)
          this.setState({data :response.data.Table })
         })
       .catch(error => console.error('timeout exceeded'))
@@ -78,47 +83,71 @@ handleClick =(id) =>{
 handelonclick = (d) =>{
   let state =  {id:d }
   this.props.history.push('/module', state);
-}
+  sessionStorage.setItem("PROJ_ID",state.id);
 
+}
+/*handlesubmit = (NAME,DESC) => {
+        //event.preventDefault();
+     alert(this.state.PROJ_ID + " " + NAME+  " " +DESC)
+        axios({
+            method: 'POST',
+            url:this.state.crudURL,
+            data:{
+                fun_name:"PRO_INSERT_DOC_PROJECTS",
+                param_name:['P_PROJ_NAME','P_APP_ID','P_PROJ_DESC'],
+                param_value:[NAME, this.state.PROJ_ID , DESC],
+            }
+        })
+            .then(response => {
+                console.log(response.data)
+                //setData(response.data )
+                //props.history.push('/')
+               // window.location.reload()
+            })
+            .catch(error => console.error('timeout exceeded'))  ;
+
+    };*/
 
 render () {
     const data = this.state.data
+
     return (
 
       
         <div>
+            <div className = "row">
+                <div className="col-12">
+                    <MenuAppBar title='Projects'/>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
 
-
-         <AddModal/>
+         <AddModal handleSubmit={() => {this.handlesubmit()}}/>
          
 
     <Grid container spacing={3}>
 
-    {data?data.map((d) => {
+    {this.state.data.map((d) =>{
+
    return (
        <Grid item xs={4}>
-       <div key={d.APP_ID}>
+       <div key={d.PROJ_ID}>
             <MediaCard appName = {d.PROJ_NAME} appDesc= {d.PROJ_DESC} appID = {d.PROJ_ID}   handledelete = { () => {this.handledelete(d.PROJ_ID)} }
-                  handleedit = { ()=> {this.handleEdit(d)}}  handelonclick = { ()=> {this.handelonclick(d.PROJ_ID)}}         />
+                     handelonclick = { ()=> {this.handelonclick(d.PROJ_ID)}}         />
             </div>
             
        </Grid>
       
     )
- }) : <div></div>
+ })
  }
     </Grid>
 
-<div className="zeinab">
-  <p id="1">
-    
-  </p>
-
-</div>
   </div>
     )
 }
 
 }
 
-export default  withRouter(Pagefor) ;
+export default  withRouter(Project) ;

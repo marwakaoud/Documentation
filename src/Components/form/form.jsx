@@ -55,36 +55,58 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  function AddForm(props) {
+    // console.log(props.currentPage)
   const classes = useStyles();
   const [app_name, setAppName] = useState("");
-  const [app_desc, setAppdesc] = useState("");
+  const [app_desc, setAppDesc] = useState("");
   const [url, setUrl] = useState("http://172.16.1.102:6060/api/v1/crud");
   const [data, setData] = useState("");
+  const [PROJ_ID, setPROJ_ID] = useState( sessionStorage.getItem("APP_ID") );
 
+  const [currentPage, currentPage1] =useState( props.currentPage);
 const handClose = (event) => {
   event.preventDefault();
-  props.history.push('/')
+  //props.history.push('/')
 }
 
-  const handlesubmit = (event) => {
-    event.preventDefault();
-    axios({
-        method: 'POST',
-        url:url,
-        data:{
-            fun_name:"PRO_INSERT_DOC_APPLICATIONS",
-            param_name:['P_APP_NAME','P_APP_DESC'],
-            param_value:[app_name , app_desc],
-        }
-      })
-      .then(response => {
-             console.log(response.data)    
-         setData(response.data )
-        props.history.push('/')
-        })
-      .catch(error => console.error('timeout exceeded'))  ;
+  const  handlesubmit = (event) => {
+     // event.preventDefault();
+      debugger
+      if (currentPage === "apps") {
+          axios({
+              method: 'POST',
+              url:url,
+              data:{
+                  fun_name:"PRO_INSERT_DOC_APPLICATIONS",
+                  param_name:['P_APP_NAME','P_APP_DESC'],
+                  param_value:[app_name , app_desc],
+              }
+          })
+              .then(response => {
 
-    };
+              })
+              .catch(error => console.error('timeout exceeded'))  ;
+      }
+      else {
+          axios({
+              method: 'POST',
+              url:url,
+              data:{
+                  fun_name:"PRO_INSERT_DOC_PROJECTS",
+                  param_name:['P_PROJ_NAME','P_APP_ID','P_PROJ_DESC'],
+                  param_value:[app_name, PROJ_ID , app_desc],
+              }
+          })
+              .then(response => {
+                  console.log(response.data)
+                  //setData(response.data )
+                  //props.history.push('/')
+                  // window.location.reload()
+              })
+              .catch(error => console.error('timeout exceeded'))  ;
+      }
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -116,21 +138,21 @@ const handClose = (event) => {
             <Grid item xs={12}>
               <TextField
                value={app_desc}
-               onChange={e => setAppdesc(e.target.value)}
+               onChange={e => setAppDesc(e.target.value)}
                 variant="outlined"
                 required
                 fullWidth
-                name="desc"
+                name="app_desc"
                 label="Description"
                 type="text"
-                id="desc"           
+                id="app_desc"
                 required
                 fullWidth
                 />
             </Grid>
           </Grid>
           <Button
-          onClick = {(event) => {handlesubmit(event)}}
+          onClick = {(event) =>{handlesubmit(event)}}
             type="submit"
             variant="contained"
             color="primary"

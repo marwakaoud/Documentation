@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddModal() {
+export default function AddModal(props) {
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -47,8 +48,7 @@ export default function AddModal() {
   };
 
   const body = (
-     
-    <AddForm/>
+    <AddForm currentPage={props.currentPage}/>
     );
 
   return (
@@ -62,7 +62,9 @@ export default function AddModal() {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-  {body}
+  {
+    body
+  }
       </Modal>
     </div>
   );

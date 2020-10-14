@@ -8,6 +8,7 @@ import LoginStepTwoPage from "./Pages/LoginStepTwo/LoginStepTwoPage";
 import { withRouter } from "react-router-dom";
 import HomePage from './Pages/Home/HomePage';
 import CRUDGrid from './Components/CRUDGrid/CRUDGrid';
+import Project from './Components/Projects/Projects'
 import Screens from './Pages/screens/screens'
 import ComponentTypes from './Pages/ComponentTypes/ComponentTypes';
 import ModulePage from './Pages/ModulesPage/ModulePage';
@@ -39,7 +40,8 @@ class App extends Component {
             <Route exact path='/' component={() => <HomePage />} />
             <Route exact path='/Pagefor' component={() =><ComponentTypes/>} />
             <Route exact path='/module' component={() => <ModulePage/> }/>
-          
+            <Route exact path='/Projects' component={() => <Project/> }/>
+
             
           </Switch>
         </div>

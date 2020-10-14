@@ -15,19 +15,6 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -54,30 +41,55 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditForm(props) {
-  const classes = useStyles();
-  const [app_name, setAppName] = useState("");
-  const [app_desc, setAppdesc] = useState("");
-  const [url, setUrl] = useState("http://172.16.1.102:6060/api/v1/crud");
-  const [data, setData] = useState("");
 
-  const handlesubmit = ( event) => {
-    console.log(props)
-        event.preventDefault();
-    axios({
-        method: 'POST',
-        url:url,
-        data:{
-            fun_name:"PRO_UPDATE_DOC_APPLICATIONS",
-            param_name:['P_APP_ID ,P_APP_NAME','P_APP_DESC'],
-            param_value:[props.app.APP_ID , app_name , app_desc],
-        }
-      })
-      .then(response => {
-             console.log(response.data)    
-         setData(response.data )
-        
-        })
-      .catch(error => console.error('timeout exceeded'))    
+  const classes = useStyles();
+  const [app_name, setAppName] = useState(props.app.APP_NAME);
+  const [app_desc, setAppDesc] = useState(props.app.APP_DESC);
+  const [url, setUrl] = useState("http://172.16.1.102:6060/api/v1/crud");
+
+    const [PROJ, setPROJ] = useState( sessionStorage.getItem("pro") );
+    const [y, setPROJ_ID] = useState( sessionStorage.getItem("APP_ID") );
+    const [currentPage, currentPage1] =useState( props.currentPage);
+  const handleSubmit = ( event) => {
+   //alert(props.app.APP_ID)
+      //props.onclose()
+        //event.preventDefault();
+      debugger
+      if (currentPage === "apps") {
+          axios({
+              method: 'POST',
+              url:url,
+              data:{
+                  fun_name:"PRO_UPDATE_DOC_APPLICATIONS",
+                  param_name:['P_APP_ID' ,'P_APP_NAME','P_APP_DESC'],
+                  param_value:[props.app.APP_ID , app_name , app_desc],
+              }
+          })
+              .then(response => {
+                  console.log(response.data)
+                  // setData(response.data )
+
+              })
+              .catch(error => console.error('timeout exceeded'))
+      }
+      else{
+          axios({
+              method: 'POST',
+              url:url,
+              data:{
+                  fun_name:"PRO_UPDATE_DOC_PROJECTS",
+                  param_name:['P_PROJ_ID' ,'P_PROJ_NAME','P_APP_ID','P_PROJ_DESC'],
+                  param_value:[PROJ ,app_name ,y , app_desc],
+              }
+          })
+              .then(response => {
+                  console.log(response.data)
+                  // setData(response.data )
+
+              })
+              .catch(error => console.error('timeout exceeded'))
+      }
+
     };
   return (
     <Container component="main" maxWidth="xs">
@@ -87,7 +99,7 @@ export default function EditForm(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {props.title}
+         Edit
         </Typography>
         <form className={classes.form} noValidate autoComplete="off">
           <Grid container spacing={2}>
@@ -98,7 +110,7 @@ export default function EditForm(props) {
           onChange={e => setAppName(e.target.value)}
                 fullWidth
                 id="app_name"
-                label="Application Name"
+                label="Name"
                 name="app_name"
                 type="text"
               />
@@ -106,7 +118,7 @@ export default function EditForm(props) {
             <Grid item xs={12}>
               <TextField
                defaultValue={props.app.APP_DESC}
-               onChange={e => setAppdesc(e.target.value)}
+               onChange={e => setAppDesc(e.target.value)}
                 variant="outlined"
                 fullWidth
                 name="desc"
@@ -118,7 +130,9 @@ export default function EditForm(props) {
             </Grid>
           </Grid>
           <Button
-          onClick = {props.handleEdit}
+
+           onClick = { handleSubmit  }
+
             type="submit"
             fullWidth
             variant="contained"

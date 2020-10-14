@@ -8,6 +8,7 @@ import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditModel from '../EditModel/EditModel';
 import ShowModel from "../ShowModel/ShowModel";
+import EditIcon from "@material-ui/icons/Edit";
 
 
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   const classes = useStyles();
-  const [id, setId] = React.useState(props.app_ID);
+  const [id, setId] = React.useState(props.appID);
 
   return (
     <Card className={classes.root}>
@@ -33,19 +34,23 @@ export default function MediaCard(props) {
             {props.appName}
             
           </p>
-          <p variant="body2" color="textSecondary" component="p">
-          </p>
+
         </CardContent>
       </CardActionArea>
       <CardActions>
-    <EditModel onClick= {props.handleedit} id = {id}  app = {{APP_ID : props.app_ID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
-<Fab color="secondary" aria-label="delete" >
+    <EditModel  currentPage={props.currentPage}  app = {{APP_ID : props.appID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
+
+
+
+
+    <Fab color="secondary" aria-label="delete" >
   <DeleteIcon onClick= {props.handledelete} />
 </Fab>
 
-<ShowModel app = {{APP_ID : props.app_ID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
+<ShowModel app = {{APP_ID : props.appID , APP_NAME : props.appName , APP_DESC : props.appDesc}}/>
 
       </CardActions>
     </Card>
   );
 }
+

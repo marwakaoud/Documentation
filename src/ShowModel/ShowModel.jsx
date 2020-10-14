@@ -37,7 +37,8 @@ export default function ShowModel(props) {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
-    const handleOpen = () => {
+    const handleOpen = (props) => {
+      console.log(props.app.APP_ID)
         console.log("react")
         setOpen(true);
     };
