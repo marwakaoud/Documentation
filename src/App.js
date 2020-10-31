@@ -14,7 +14,9 @@ import Pagefor from './Components/pagefor/pagefor';
 import ComponentTypes from './Pages/ComponentTypes/ComponentTypes';
 import ModulePage from './Pages/ModulesPage/ModulePage';
 import MediaCard from './Components/Card/Card'
-
+import BasicTreeData from './Components/TreeTable/TreeTable'
+import Treepage from '../src/data'
+import Editable from './Components/TreeTable/testingadd'
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +25,7 @@ class App extends Component {
       user_id : sessionStorage.getItem("USER_ID")
 
     }
-    this.props.history.push('/media')
+    
 
   }
 
@@ -40,9 +42,10 @@ class App extends Component {
             <Route exact path='/Pagefor' component={() =><ComponentTypes/>} />
             <Route exact path='/module' component={() => <ModulePage/> }/>
             <Route exact path='/media' component={() => <MediaCard/> }/>
-
-          
+            <Route exact path='/BasicTreeData' component={() => <BasicTreeData/> }/>
+            <Route exact path='/treepage' component={() => <Treepage/> }/>
             
+            <Route exact path='/Editable' component={() => <Editable/> }/>
           </Switch>
         </div>
     );
